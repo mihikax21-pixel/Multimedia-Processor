@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multimedia Processor</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f3f8;
+    color: #252545;
+}
+
+header {
+    background: #252545;
+    color: white;
+    text-align: center;
+    padding: 35px 15px;
+}
+
+header h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+nav {
+    background: #393963;
+    padding: 17px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 18px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #c8c8ff;
+}
+
+.container {
+    width: 90%;
+    max-width: 1150px;
+    margin: 40px auto;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.intro h2 {
+    margin-bottom: 12px;
+    font-size: 28px;
+}
+
+.intro p {
+    color: #666;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    padding: 27px;
+    border-radius: 13px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    color: #393963;
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: white;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 22px;
+    background: #393963;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #55558c;
+}
+
+.note {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #777;
+}
+
+footer {
+    background: #252545;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 50px;
+}
+
+@media(max-width: 600px) {
+    nav a {
+        display: inline-block;
+        margin: 8px;
+    }
+
+    .container {
+        width: 94%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Multimedia Processor</h1>
+    <p>One Platform for Image, Audio and Video Processing</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#image">Image</a>
+    <a href="#audio">Audio</a>
+    <a href="#video">Video</a>
+</nav>
+
+<div class="container" id="home">
+
+    <div class="intro">
+        <h2>Welcome to Multimedia Processor</h2>
+        <p>Upload your multimedia files and select an operation.</p>
+    </div>
+
+    <div class="cards">
+
+        <!-- IMAGE PROCESSING -->
+        <div class="card" id="image">
+
+            <h2>🖼 Image Processing</h2>
+            <p>Resize images and convert them into grayscale.</p>
+
+            <form action="http://127.0.0.1:8080/process"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                <input type="hidden" name="type" value="image">
+
+                <label>Select Image</label>
+                <input type="file" name="file"
+                       accept="image/*" required>
+
+                <label>Select Operation</label>
+                <select name="operation" required>
+                    <option value="">Choose Operation</option>
+                    <option value="Resize Image">Resize Image</option>
+                    <option value="Convert to Grayscale">Convert to Grayscale</option>
+                </select>
+
+                <label>Width (for resizing)</label>
+                <input type="number" name="width"
+                       min="1" max="5000" placeholder="Enter width">
+
+                <label>Height (for resizing)</label>
+                <input type="number" name="height"
+                       min="1" max="5000" placeholder="Enter height">
+
+                <button type="submit">Process Image</button>
+            </form>
+        </div>
+
+        <!-- AUDIO PROCESSING -->
+        <div class="card" id="audio">
+
+            <h2>🎵 Audio Processing</h2>
+            <p>Adjust volume and trim your audio files.</p>
+
+            <form action="http://127.0.0.1:8080/process"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                <input type="hidden" name="type" value="audio">
+
+                <label>Select Audio</label>
+                <input type="file" name="file"
+                       accept="audio/*" required>
+
+                <label>Select Operation</label>
+                <select name="operation" required>
+                    <option value="">Choose Operation</option>
+                    <option value="Adjust Volume">Adjust Volume</option>
+                    <option value="Trim Audio">Trim Audio</option>
+                </select>
+
+                <label>Duration in seconds (for trimming)</label>
+                <input type="number" name="duration"
+                       step="0.1" min="0.1" max="3600"
+                       placeholder="Enter duration">
+
+                <button type="submit">Process Audio</button>
+            </form>
+        </div>
+
+        <!-- VIDEO PROCESSING -->
+        <div class="card" id="video">
+
+            <h2>🎬 Video Processing</h2>
+            <p>Trim and compress your video files.</p>
+
+            <form action="http://127.0.0.1:8080/process"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                <input type="hidden" name="type" value="video">
+
+                <label>Select Video</label>
+                <input type="file" name="file"
+                       accept="video/*" required>
+
+                <label>Select Operation</label>
+                <select name="operation" required>
+                    <option value="">Choose Operation</option>
+                    <option value="Trim Video">Trim Video</option>
+                    <option value="Video Compression">Video Compression</option>
+                </select>
+
+                <label>Duration in seconds (for trimming)</label>
+                <input type="number" name="duration"
+                       step="0.1" min="0.1" max="3600"
+                       placeholder="Enter duration">
+
+                <button type="submit">Process Video</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Multimedia Processor</p>
+    <p>Developed using HTML, CSS, C++ and FFmpeg</p>
+</footer>
+
+</body>
+</html>
